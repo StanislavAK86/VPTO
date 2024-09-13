@@ -1,0 +1,32 @@
+{ {% extends "base.html" %} }
+{% load static %}
+
+
+{% block content %}
+    <div class="gallery-container">
+
+        <img src="{% static 'blog/img/1.jpg' %}" alt="photo" class="gallery-image">
+        <img src="{% static 'blog/img/gallery/2.jpg' %}" alt="photo" class="gallery-image">
+        <img src="{% static 'blog/img/gallery/3.jpg' %}" alt="photo" class="gallery-image">
+    
+        
+    </div>
+    
+    <div class="controls">
+    
+        <button id="prev-btn">Предыдущее</button>
+        
+        <button id="next-btn">Следующее</button>
+    
+    </div>
+    
+    {% comment %} <div id="gallery">
+
+        <img src="{% static 'blog/img/1.jpg' %}" alt="photo">
+        <img src="{% static 'blog/img/gallery/2.jpg' %}" alt="photo">
+        <img src="{% static 'blog/img/gallery/3.jpg' %}" alt="photo">
+
+        
+    </div> {% endcomment %}
+{% endblock %}
+   

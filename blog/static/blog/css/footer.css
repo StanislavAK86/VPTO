@@ -1,0 +1,34 @@
+.footer {
+  background-color: #6e6ec5;
+}
+.footer menu {
+  display: flex;
+  padding: 0;
+  margin: 6px 0px 6px 0px;
+  list-style-type: none;
+  justify-content: space-evenly;
+  border-top: #4b4b5b solid 2px;
+}
+.footer > menu a {
+  color: #1d1d1f;
+  font-size: 0.9em;
+
+}
+.footer > menu a:hover {
+  color: #624362;
+  font-size: 1.1em;
+
+}
+
+@media only screen and (max-width: 815px) {
+
+}
+@media only screen and (max-width: 615px) {
+
+}
+@media only screen and (max-width: 530px) {
+
+}
+@media only screen and (max-width: 320px) {
+  
+}

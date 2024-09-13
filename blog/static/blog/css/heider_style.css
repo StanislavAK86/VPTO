@@ -1,0 +1,210 @@
+
+ body {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+  min-width: 250px;
+  background-color: rgb(247, 247, 249);
+  
+ }
+ .heider {
+    background-color: rgb(88, 88, 165);
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    
+  }
+  .logo {
+    display: grid;
+    justify-content: center;
+    margin-left: 20px;
+  }
+  .logo img {
+    display: inline;
+    width: 130px;
+
+  }
+  .text_title{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    color: rgba(240, 228, 63, 0.89);
+    text-align: center;
+    text-shadow: 1px 2px 11px #bfd3c3;
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: 3em;
+    -webkit-animation: site_name 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      animation: site_name 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  @-webkit-keyframes site_name {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes site_name {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  
+
+@media only screen and (max-width : 615px) {
+  .heider {
+    background-color: rgb(88, 88, 165);
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    
+  }
+  .logo {
+    display: grid;
+    justify-content: center;
+    margin-left: 20px;
+  }
+  .logo img {
+    display: inline;
+    width: 100px;
+
+  }
+  .text_title{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    color: rgba(240, 228, 63, 0.89);
+    text-align: center;
+    text-shadow: 1px 2px 11px #bfd3c3;
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: 1.8em;
+    -webkit-animation: site_name 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      animation: site_name 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  @-webkit-keyframes site_name {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes site_name {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  
+}
+
+@media only screen and (max-width : 530px) {
+  .heider {
+    background-color: rgb(88, 88, 165);
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    
+  }
+  .logo {
+    display: grid;
+    justify-content: center;
+  }
+  .logo img {
+    display: inline;
+    width: 70px;
+
+  }
+  .text_title{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    color: rgba(240, 228, 63, 0.89);
+    text-align: center;
+    text-shadow: 1px 2px 11px #bfd3c3;
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: 1.3em;
+    -webkit-animation: site_name 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      animation: site_name 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  @-webkit-keyframes site_name {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes site_name {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  
+}
+
+@media only screen and (max-width : 320px) {
+  .heider {
+    background-color: rgb(88, 88, 165);
+    border-radius: 0 0 20px 20px;
+    display: block;
+    
+  }
+  .logo {
+    display: grid;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .logo img {
+    display: inline;
+    width: 70px;
+
+  }
+  .text_title{
+    display: none;
+    
+  }
+  
+}
