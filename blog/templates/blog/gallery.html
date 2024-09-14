@@ -1,32 +1,27 @@
 { {% extends "base.html" %} }
-{% load static %}
 
 
 {% block content %}
-    <div class="gallery-container">
 
-        <img src="{% static 'blog/img/1.jpg' %}" alt="photo" class="gallery-image">
-        <img src="{% static 'blog/img/gallery/2.jpg' %}" alt="photo" class="gallery-image">
-        <img src="{% static 'blog/img/gallery/3.jpg' %}" alt="photo" class="gallery-image">
-    
-        
-    </div>
-    
-    <div class="controls">
-    
-        <button id="prev-btn">Предыдущее</button>
-        
-        <button id="next-btn">Следующее</button>
-    
-    </div>
-    
-    {% comment %} <div id="gallery">
 
-        <img src="{% static 'blog/img/1.jpg' %}" alt="photo">
-        <img src="{% static 'blog/img/gallery/2.jpg' %}" alt="photo">
-        <img src="{% static 'blog/img/gallery/3.jpg' %}" alt="photo">
+ <div class="slider-container ">
+    {% for group in groups %}
+        <div class="slider">
+            <h2>{{ group.name }}</h2>
+            <div class="slider">
+                <div class="slide img">
+                    {% for image in group.image_set.all %}
+                        <img src="{{ image.image.url }}" alt="{{ image.description }}" height=200px>
+                    {% endfor %}
+                </div>
+                <button class="prev-button" onclick="prevImage(this)">Previous</button>
+                <button class="next-button" onclick="nextImage(this)">Next</button>
+            </div>
+        </div>
+    {% endfor %}
+</div> 
 
-        
-    </div> {% endcomment %}
+
+
 {% endblock %}
    

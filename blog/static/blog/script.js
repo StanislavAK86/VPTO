@@ -1,89 +1,22 @@
-const galleryContainer = document.querySelector(".gallery-container");
+document.addEventListener('DOMContentLoaded', function() { // связь с DOM
+  const sliders = document.querySelectorAll('.slider'); // выбираем все слайдеры
 
-const images = document.querySelectorAll(".gallery-image");
+  sliders.forEach(slider => { // для каждого слайдера
+      let currentIndex = 0;
+      const slides = slider.querySelectorAll('.slide');
 
-const prevButton = document.getElementById("prev-btn");
+      function showSlide(index) { // показать слайд по индексу
+          slides.forEach((slide, i) => {
+              slide.style.display = i === index ? 'block' : 'none';
+          });
+      }
 
-const nextButton = document.getElementById("next-btn");
+      function nextSlide() { // следующий слайд по индексу 
+          currentIndex = (currentIndex + 1) % slides.length;
+          showSlide(currentIndex);
+      }
 
-let currentImageIndex = 0;
-
-// Функция для отображения картинки
-
-function showImage(index) {
-  images.forEach((image, i) => {
-    if (i === index) {
-      image.style.transform = "scale(1)";
-    } else {
-      image.style.transform = "scale(0)";
-    }
+      setInterval(nextSlide, 3000); // следующий слайд каждые 3 секунды
+      showSlide(currentIndex);
   });
-}
-
-// Переключение к предыдущему
-
-function showPreviousImage() {
-  currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-
-  showImage(currentImageIndex);
-}
-
-// Переключение к следующему
-
-function showNextImage() {
-  currentImageIndex = (currentImageIndex + 1) % images.length;
-
-  showImage(currentImageIndex);
-}
-
-// Слушатели событий для кнопок
-
-prevButton.addEventListener("click", showPreviousImage);
-
-nextButton.addEventListener("click", showNextImage);
-
-// Показываем первую картинку
-
-showImage(currentImageIndex);
-
-// Добавление индикатора
-
-const imageIndicator = document.createElement('div');
-
-imageIndicator.classList.add('image-indicator');
-
-galleryContainer.appendChild(imageIndicator);
-
-function updateImageIndicator() {
-
-imageIndicator.innerHTML = `${currentImageIndex + 1} / ${images.length}`;
-
-}
-
-// Обновление индикатора при переключении
-
-function showPreviousImage() {
-
-currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-
-showImage(currentImageIndex);
-
-updateImageIndicator();
-
-}
-
-function showNextImage() {
-
-currentImageIndex = (currentImageIndex + 1) % images.length;
-
-showImage(currentImageIndex);
-
-updateImageIndicator();
-
-}
-
-// Показываем текущее и обновляем индикатор
-
-showImage(currentImageIndex);
-
-updateImageIndicator();
+});

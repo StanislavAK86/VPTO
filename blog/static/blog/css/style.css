@@ -4,61 +4,37 @@
 @import "gallery_style.css";
 @import "game_style.css";
 
-.gallery-container {
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  height: 80vh;
-}
-
-/* Стили для картинок*/
-
-.gallery-image {
-  max-width: 100%;
-
-  max-height: 80%;
-
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Элементы управления */
-
-.controls {
-  text-align: center;
-
-  margin-top: 20px;
-}
-
-#prev-btn,
-#next-btn {
-  background-color: #007bff;
-
-  color: #fff;
-
-  padding: 10px 20px;
-
-  border: none;
-
-  cursor: pointer;
-}
-
-#prev-btn {
-  margin-right: 10px;
-}
-
-.gallery-image {
-  /* Остальные стили остаются без изменений */
-
-  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-}
-
-/* Индикатор текущего изображения */
-
-.image-indicator {
-  text-align: center;
-
-  margin-top: 10px;
-}
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .slider {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  
+  .slide {
+    display: none;
+    width: 50%;
+    height: auto;
+  }
+  
+  .slide img {
+    width: 50%;
+    height: auto;
+  }
+  
+  .caption {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+  }
+  

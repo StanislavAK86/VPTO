@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.template.context_processors import request
 from django.views.decorators.cache import cache_page
 from .models import News
+# from .models import media_file
+from .models import ImageGroup, Image
 
 info = {
     "name":"Петр",
@@ -59,6 +61,17 @@ def nav(requerst):
     return render(requerst, 'nav.html')
 
 
-def gallery(requerst):
-    return render(requerst, 'blog/gallery.html')
+# def gallery(requerst):
+#     return render(requerst, 'blog/gallery.html')
 
+# def home_page(request):
+#     # получаем все значения модели
+#     data = media_file.objects.all()
+#     return render(request, 'blog/gallery.html', {'data': data})
+
+def gallery(request):
+    groups = ImageGroup.objects.all()
+    context = {
+        'groups': groups
+    }
+    return render(request, 'blog/gallery.html', context)

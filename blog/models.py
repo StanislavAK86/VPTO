@@ -15,7 +15,33 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+
+
+class ImageGroup(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Image(models.Model):
+    group = models.ForeignKey(ImageGroup, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/')
+    description = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return self.description
+
+
+
+# # создание модели таблицы "media_file" c полями "title", "cover", "img_file", "grup"
+# class media_file(models.Model):
+#     title = models.CharField(max_length=150)
+#     img_file = models.FileField(upload_to='images/')
+#     grup = models.CharField(max_length=200, default='images')
+
+#     def __str__(self):
+#         return self.title
 
 """ 
 добавление новостей
