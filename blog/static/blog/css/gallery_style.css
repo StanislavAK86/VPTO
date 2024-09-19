@@ -1,10 +1,6 @@
-
-
 .slider-container {
   display: flex;
-  
 }
-
 .slider {
   position: relative;
   width: 100%;
@@ -13,32 +9,21 @@
   overflow: hidden;
 }
 .sliders {
-  
   position: relative;
   width: 50%;
   max-width: 800px;
   margin: 20px 0;
   overflow: hidden;
-
 }
-
+.sliders h2 {
+  text-align: center;
+}
 .slide {
   display: none;
   width: auto;
   height: 250px;
 }
-
 .slide img {
   width: 100%;
   height: auto;
 }
-
-.caption {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 5px;
-}
-
