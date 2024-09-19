@@ -23,5 +23,8 @@ document.addEventListener('DOMContentLoaded', function() { // связь с DOM
 
       setInterval(nextSlide, 3000); // следующий слайд каждые 3 секунды
       showSlide(currentIndex);
+      
   });
+
+  
 });
