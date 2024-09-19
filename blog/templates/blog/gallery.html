@@ -5,14 +5,15 @@
     {% for group in groups %}
         <div class="sliders">
             <h2>{{ group.name }}</h2>
-                <div class="slider" >
+            <div class="slider" >
+                <div class="slidery" >
                     {% for image in group.image_set.all %}
                         <img src="{{ image.image.url }}" alt="{{ image.description }}" class="slide" >
                     {% endfor %}
                 </div>
-                <button id="prevBtn"  class="prev-button" onclick="prevImage(this)">Previous</button>
-                <button id="nextBtn" class="next-button" onclick="nextImage(this)">Next</button>
-            
+                <button class="prevBtn" onclick="prevImage(this)">Previous</button>
+                <button class="nextBtn" onclick="nextImage(this)">Next</button>
+            </div>
         </div>
     {% endfor %}
 </div> 
