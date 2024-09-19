@@ -4,4 +4,6 @@ venv
 .vscode
 *.sqlite3
 *.db
-__pycache__
+.jpg
+.png
+__pycache__ 

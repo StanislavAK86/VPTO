@@ -3,6 +3,7 @@
 
 document.addEventListener('DOMContentLoaded', function() { // связь с DOM
   const sliders = document.querySelectorAll('.slider'); // выбираем все слайдеры
+  
 
   sliders.forEach(slider => { // для каждого слайдера 
       let currentIndex = 0; // текущий слайд по индексу
