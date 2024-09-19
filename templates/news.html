@@ -1,31 +1,18 @@
 { {% extends "base.html" %} }
-
-
-
-{% comment %} {% block nav %}
-
-    <menu>
-        <li><a href="#">Главная</a></li>
-        <li><a href="{{gl.url}}">Галерея</a></li>
-        <li><a href="#">О нас</a></li>
-        <li><a href="#">Войти</a></li>
-    </menu>
-    
-{% endblock %}
- {% endcomment %}
- {% block content %}
+{% block content %}
  {% for item in news %}
- <div class="content">
-     <div class="content_block">
-         <div class="news">
-             <div class="news_block">
-                 <div class="time_news"> Опубликованно: {{item.date}}</div>
-                 <div class="text_news">{{item.content}} <p>Автор: {{item.autor}}</p></div>
-                 
-             </div>
-                                        
-         </div>
-     </div>
- </div>
+    <div class="content">
+    <div class="content_block">
+        <div class="news">
+        <div class="news_block">
+            <div class="time_news">Опубликованно: {{item.date}}</div>
+            <div class="text_news">
+            {{item.content}}
+            <p>Автор: {{item.autor}}</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
  {% endfor %}
- {% endblock %}
+{% endblock %}

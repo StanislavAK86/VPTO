@@ -4,37 +4,5 @@
 @import "gallery_style.css";
 @import "game_style.css";
 
-.slider-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .slider {
-    position: relative;
-    width: 80%;
-    max-width: 800px;
-    margin: 20px 0;
-    overflow: hidden;
-  }
-  
-  .slide {
-    display: none;
-    width: 50%;
-    height: auto;
-  }
-  
-  .slide img {
-    width: 50%;
-    height: auto;
-  }
-  
-  .caption {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 5px;
-  }
+
   
