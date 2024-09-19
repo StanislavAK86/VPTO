@@ -3,12 +3,12 @@
 {% block content %}
  <div class="slider-container">
     {% for group in groups %}
-        <div class="slider">
+        <div class="sliders">
             <h2>{{ group.name }}</h2>
             <div class="slider">
-                <div class="slider">
+                <div class="slider" >
                     {% for image in group.image_set.all %}
-                        <img src="{{ image.image.url }}" alt="{{ image.description }}" class="slide">
+                        <img src="{{ image.image.url }}" alt="{{ image.description }}" class="slide" >
                     {% endfor %}
                 </div>
                 <button class="prev-button" onclick="prevImage(this)">Previous</button>
