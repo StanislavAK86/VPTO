@@ -4,7 +4,7 @@ from django.template.context_processors import request
 from django.views.decorators.cache import cache_page
 from .models import News
 from .models import ImageGroup, Image
-from .forms import NewsForm
+from .forms import NewsForm, AuthorizationForm
 
 
 
@@ -48,3 +48,17 @@ def add_news(request):
 
     context = {'form': form}
     return render(request, 'blog/add_news.html', context=context)
+
+def about(request):
+    return render(request, 'blog/about.html')
+
+def authorization(request):
+    if request.method == 'POST':
+        form = AuthorizationForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/')
+    else: 
+        form = AuthorizationForm()
+
+    context = {'form': form}
+    return render(request, 'blog/authorization.html', context=context)

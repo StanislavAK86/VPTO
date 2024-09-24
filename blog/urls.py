@@ -3,7 +3,7 @@ from . import views
 from blog.views import gallery
 from django.conf import settings
 from django.conf.urls.static import static
-from .forms import NewsForm
+from .forms import NewsForm, AuthorizationForm
 
 
 
@@ -11,6 +11,8 @@ urlpatterns = [
     path('', views.news_content, name="main"),
     path('gallery/', views.gallery, name="gallery"),
     path('add_news/', views.add_news, name="add_news"),
+    path('about/', views.about, name="about"),
+    path('authorization/', views.authorization, name="authorization"),
     
 ]
 
