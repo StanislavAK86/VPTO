@@ -1,6 +1,11 @@
+
+
 <menu>
-  <li><a href="{% url 'main'  %}">Главная</a></li>
-  <li><a href="{% url 'gallery'  %}">Галерея</a></li>
-  <li><a href="{% url 'about' %}">О нас</a></li> 
-  {% comment %} <li><a href="#">Войти</a></li>{% endcomment %}
+  {% if menu %}
+    {% for item in menu %}
+      <li><a href="{% url item|lower %}">{{ item }}</a></li>
+    {% endfor %}
+  {% else %}
+    <li>Меню не найдено</li>
+  {% endif %}
 </menu>

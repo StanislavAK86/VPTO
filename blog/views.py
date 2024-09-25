@@ -6,7 +6,13 @@ from .models import News
 from .models import ImageGroup, Image
 from .forms import NewsForm, AuthorizationForm
 
+nav_menu = {'menu': ['главная', 'галерея', 'о нас', 'войти']}
 
+
+    
+
+def nav(requerst):
+    return render(requerst, 'include/nav.html', nav_menu)
 
 def news_content(requerst):
         # считаем параметры из GET-запроса
@@ -26,12 +32,6 @@ def news_content(requerst):
     news = News.objects.all().order_by(order_by)
     context = {'news': news}
     return render(requerst, 'blog/news.html', context=context)
-    
-
-def nav(requerst):
-    return render(requerst, 'nav.html')
-
-
 def gallery(request):
     groups = ImageGroup.objects.all()
     context = {
