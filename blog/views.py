@@ -6,14 +6,9 @@ from .models import News
 from .models import ImageGroup, Image
 from .forms import NewsForm, AuthorizationForm
 
-nav_menu = {'menu': ['главная', 'галерея', 'о нас', 'войти']}
-
-
-    
-
-def nav(requerst):
-    return render(requerst, 'include/nav.html', nav_menu)
-
+nav_menu = {
+    'menu': ['Главная', 'Галерея', 'О нас', 'Курсы'],
+}
 def news_content(requerst):
         # считаем параметры из GET-запроса
     sort = requerst.GET.get('sort', 'date')
@@ -30,12 +25,12 @@ def news_content(requerst):
     else:
         order_by = f'-{sort}'
     news = News.objects.all().order_by(order_by)
-    context = {'news': news}
+    context = {'news': news, 'menu': nav_menu['menu']}
     return render(requerst, 'blog/news.html', context=context)
 def gallery(request):
     groups = ImageGroup.objects.all()
     context = {
-        'groups': groups
+        'groups': groups, 'menu': nav_menu['menu']
     }
     return render(request, 'blog/gallery.html', context)
 def add_news(request):
@@ -50,7 +45,8 @@ def add_news(request):
     return render(request, 'blog/add_news.html', context=context)
 
 def about(request):
-    return render(request, 'blog/about.html')
+    context = {'menu': nav_menu['menu']}
+    return render(request, 'blog/about.html', context=context)
 
 def authorization(request):
     if request.method == 'POST':

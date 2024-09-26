@@ -1,11 +1,16 @@
-
+{% comment %} <menu>
+  <li><a href="{% url 'main'  %}">Главная</a></li>
+  <li><a href="{% url 'gallery'  %}">Галерея</a></li>
+  <li><a href="{% url 'about' %}">О нас</a></li> 
+  <li><a href="{% url 'curses' %}">Курсы</a></li>
+</menu> {% endcomment %}
 
 <menu>
   {% if menu %}
     {% for item in menu %}
-      <li><a href="{% url item|lower %}">{{ item }}</a></li>
+      <li><a href="{% url item %}">{{ item }}</a></li>
     {% endfor %}
   {% else %}
     <li>Меню не найдено</li>
   {% endif %}
-</menu>
+</menu> 

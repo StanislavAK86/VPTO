@@ -8,12 +8,12 @@ from .forms import NewsForm, AuthorizationForm
 
 
 urlpatterns = [
-    path('', views.news_content, name="главная"),
-    path('gallery/', views.gallery, name="галерея"),
+    path('', views.news_content, name="Главная"),
+    path('gallery/', views.gallery, name="Галерея"),
     path('add_news/', views.add_news, name="add_news"),
-    path('about/', views.about, name="о нас"),
-    path('authorization/', views.authorization, name="войти"),
-    path('nav/', views.nav, name="nav_menu"),
+    path('about/', views.about, name="О нас"),
+    path('authorization/', views.authorization, name="authorization"),
+    #path('nav/', views.nav, name="nav_menu"),
     
 ]
 
