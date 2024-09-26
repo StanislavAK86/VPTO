@@ -10,4 +10,9 @@ nav_menu = {
 # Create your views here.
 def curses(request):
     context = {'menu': nav_menu['menu']}
-    return render(request, 'curses/curses.html', context=context)
+    return render(request, 'curses.html', context=context)
+
+def questionnaire(request):
+    context = {'menu': nav_menu['menu']}
+    return render(request, 'curses/question.html', context=context)
+

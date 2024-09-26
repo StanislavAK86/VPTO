@@ -7,4 +7,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path(' ', views.curses, name="Курсы"),
+    path('questionnaire/', views.questionnaire, name="question"),
 ]
