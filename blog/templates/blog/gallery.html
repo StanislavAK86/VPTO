@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    .Btn {
+        display: flex;
+        justify-content: space-around;
+    }
+    .prevBtn {
+        width: 50%;
+        border: none;
+        margin-right: 1px;
+    }
+    .nextBtn {
+        width: 50%;
+        border: none;
+        margin-left: 1px;
+    }    
+</style>
  <div class="slider-container">
     {% for group in groups %}
         <div class="sliders">
@@ -11,8 +27,10 @@
                         <img src="{{ image.image.url }}" alt="{{ image.description }}" class="slide" >
                     {% endfor %}
                 </div>
-                <button class="prevBtn" onclick="prevImage(this)">Назад</button>
-                <button class="nextBtn" onclick="nextImage(this)">Следующий</button>
+                <div class="Btn">
+                    <button class="prevBtn" onclick="prevImage(this)">Назад</button>
+                    <button class="nextBtn" onclick="nextImage(this)">Следующий</button>
+                </div>  
             </div>
         </div>
     {% endfor %}

@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-    <p >Вы вошли как ??? / <button type="button" class="btn btn-secondary btn-sm">выйти</button></p>
+    
+    <style>
+        .z-1 {
+            display: flex;
+            justify-content: flex-end    
+        }
+    </style> 
+    <div class="z-1">
+        <p>Вы вошли как ??? / <button type="button" class="btn btn-secondary btn-sm">выйти</button></p>
+    </div>
+    
+    
     <div> <a href="{% url 'question' %}">тесты</a>  </div>
     {% block curses %}
     {% endblock %}   
