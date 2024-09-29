@@ -5,7 +5,7 @@ class News(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     autor = models.CharField(max_length=100)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     
 
     class Meta:

@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.template.context_processors import request
 from django.views.decorators.cache import cache_page
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import News
 from .models import ImageGroup, Image
 from .forms import NewsForm, AuthorizationForm
 from django.views.generic import View, TemplateView, FormView
+from django.urls import reverse_lazy
+
 
 nav_menu = {
     'menu': ['Главная', 'Галерея', 'О нас', 'Курсы'],
@@ -16,7 +19,7 @@ class MenuMixin(View):
         context['menu'] = nav_menu['menu']
         return context
 
-class NewsContentView(MenuMixin, TemplateView):
+class NewsContent(MenuMixin, TemplateView):
     template_name = 'blog/news.html'
 
     def get_context_data(self, **kwargs):
@@ -36,26 +39,8 @@ class NewsContentView(MenuMixin, TemplateView):
         news = News.objects.all().order_by(order_by)
         context['news'] = news
         return context
-# def news_content(requerst):
-#         # считаем параметры из GET-запроса
-#     sort = requerst.GET.get('sort', 'date')
-#     order = requerst.GET.get('order', 'asc')
 
-#     # Проверяем дали ли мы разрешение на сортировку по этому полю
-#     valid_sort_fields = {'date', 'views', 'adds'}
-#     if sort not in valid_sort_fields:
-#         sort = 'date'
-
-#     # Обрабатываем направление сортировки
-#     if order == 'desc':
-#         order_by = sort
-#     else:
-#         order_by = f'-{sort}'
-#     news = News.objects.all().order_by(order_by)
-#     context = {'news': news, 'menu': nav_menu['menu']}
-#     return render(requerst, 'blog/news.html', context=context)
-
-class GalleryView(MenuMixin, TemplateView):
+class Gallery(MenuMixin, TemplateView):
     template_name = 'blog/gallery.html'
 
     def get_context_data(self, **kwargs):
@@ -63,56 +48,32 @@ class GalleryView(MenuMixin, TemplateView):
         context['groups'] = ImageGroup.objects.all()
         context['menu'] = nav_menu['menu']
         return context
-# def gallery(request):
-#     groups = ImageGroup.objects.all()
-#     context = {
-#         'groups': groups, 'menu': nav_menu['menu']
-#     }
-#     return render(request, 'blog/gallery.html', context)
 
 
-class AddNewsView(MenuMixin, FormView):
+
+class AddNews(LoginRequiredMixin, MenuMixin, FormView):
     template_name = 'blog/add_news.html'
     form_class = NewsForm
     success_url = '/'
+    login_url = reverse_lazy('users:login')
+    redirect_field_name = 'next'
     
 
     def form_valid(self, form):
+        form.save()
         return super().form_valid(form)
-    
-# def add_news(request):
-#     if request.method == 'POST':
-#         form = NewsForm(request.POST)
-#         if form.is_valid():
-#             return HttpResponseRedirect('/')
-#     else: 
-#         form = NewsForm()
-
-#     context = {'form': form}
-#     return render(request, 'blog/add_news.html', context=context)
 
 
-class AboutView(MenuMixin, TemplateView):
+
+class About(MenuMixin, TemplateView):
     template_name = 'blog/about.html'
-# def about(request):
-#     context = {'menu': nav_menu['menu']}
-#     return render(request, 'blog/about.html', context=context)
 
 
-class AuthorizationView(MenuMixin, FormView):
+
+class Authorization(MenuMixin, FormView):
     template_name = 'blog/authorization.html'
     form_class = AuthorizationForm
     success_url = '/'
 
     def form_valid(self, form):
         return super().form_valid(form)
-# def authorization(request):
-#     if request.method == 'POST':
-#         form = AuthorizationForm(request.POST)
-#         if form.is_valid():
-#             return HttpResponseRedirect('/')
-#     else: 
-#         form = AuthorizationForm()
-
-#     context = {'form': form}
-#     return render(request, 'blog/authorization.html', context=context)

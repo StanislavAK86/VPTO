@@ -1,6 +1,7 @@
 menu a {
   text-decoration-line: none;
   text-decoration: none;
+  text-shadow: #6e6ec5 1px 1px 3px;
   display: inline;
   color: #6e6ec5;
   font-size: 2.5em;
@@ -17,7 +18,7 @@ menu li {
   display: inline;
 }
 menu li :hover {
-  color: blue;
+  color: rgb(98, 98, 161);
 }
 .news {
   display: flex;

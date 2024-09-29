@@ -1,9 +1,9 @@
 from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-from .forms import LoginUserPassword
+from .forms import CustomAuthenticationForm
 from django.views.generic import TemplateView, View, FormView
-
+from django.urls import reverse_lazy
 
 class MenuMixin(View):
     nav_menu = {
@@ -19,8 +19,13 @@ class MenuMixin(View):
 
 class LoginUserView(MenuMixin, FormView):
     template_name = 'users/login.html'
-    form_class = LoginUserPassword
-    success_url = '/'  # URL для перенаправления после успешной аутентификации
+    form_class = CustomAuthenticationForm
+    success_url = reverse_lazy('users:Главная')  # URL для перенаправления после успешной аутентификации
+
+    def get_success_url(self):
+        if self.request.GET.get('next'):
+            return self.request.POST.get('next')
+        return reverse_lazy('users:Главная')
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
@@ -28,7 +33,8 @@ class LoginUserView(MenuMixin, FormView):
         user = authenticate(self.request, username=username, password=password)
         if user is not None:
             login(self.request, user)
-            return super().form_valid(form)
+            next_url = self.request.GET.get('next', 'users:login')
+            return redirect(next_url)
         else:
             form.add_error(None, "Invalid username or password")
             return self.form_invalid(form)

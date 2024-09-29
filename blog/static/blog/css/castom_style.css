@@ -1,0 +1,11 @@
+.btn-custom {
+  background-color: rgb(140, 140, 206);
+  border-color: rgb(140, 140, 206);
+  border-radius: 5px;
+  color: rgba(240, 228, 63, 0.89);
+}
+
+.btn-custom:hover {
+  background-color: rgb(78, 78, 155);
+  border-color: rgb(78, 78, 155);
+}

@@ -10,8 +10,9 @@
   border-top: #4b4b5b solid 2px;
 }
 .footer > menu a {
-  color: #1d1d1f;
+  color: rgba(240, 228, 63, 0.89);
   font-size: 0.9em;
+  text-shadow: rgba(206, 197, 81, 0.89) 1px 1px 10px;
 
 }
 .footer > menu a:hover {

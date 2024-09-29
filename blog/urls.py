@@ -4,16 +4,16 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from .forms import NewsForm, AuthorizationForm
-from .views import NewsContentView, GalleryView, AddNewsView, AboutView, AuthorizationView
+from .views import NewsContent, Gallery, AddNews, About, Authorization
 
 
 
 urlpatterns = [
-    path('', NewsContentView.as_view(), name="Главная"),
-    path('gallery/', GalleryView.as_view(), name="Галерея"),
-    path('add_news/', AddNewsView.as_view(), name="add_news"),
-    path('about/', AboutView.as_view(), name="О нас"),
-    path('authorization/', AuthorizationView.as_view(), name="authorization"),
+    path('', NewsContent.as_view(), name="Главная"),
+    path('gallery/', Gallery.as_view(), name="Галерея"),
+    path('add_news/', AddNews.as_view(), name="add_news"),
+    path('about/', About.as_view(), name="О нас"),
+    path('authorization/', Authorization.as_view(), name="authorization"),
     #path('nav/', views.nav, name="nav_menu"),
     
 ]
