@@ -6,9 +6,54 @@
             display: flex;
             justify-content: flex-end    
         }
+        .z-1 li {
+            display: flex;
+            display: inline;
+                
+        }
+        .navbar-nav {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .nav-item {
+            margin-right: 10px;
+            display: flex;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #000;
+            
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        .nav-item:last-child .nav-link {
+            margin-left: 0px;
+            
+        }
     </style> 
     <div class="z-1">
-        <p>Вы вошли как ??? / <button type="button" class="btn btn-secondary btn-sm">выйти</button></p>
+        <ul class="navbar-nav"> <!-- Элементы правой части без выравнивания по левому краю -->
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="#">Вы вошли как, {{ user.username }}  /</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+            </li>
+            {% comment %} <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:signup' %}">Регистрация</a>
+            </li> {% endcomment %}
+            {% endif %}
+          </ul>
     </div>
     
     
