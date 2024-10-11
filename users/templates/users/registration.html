@@ -12,15 +12,16 @@
     }
 </style>
 
+
     <div class="container">
-        <h2>Вход в систему</h2>
+        <h2>Регистрация</h2>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="hidden" name="next" value="{{ request.GET.next }}">
             <div class="form-actions">
-                <button type="submit" class="btn btn-dark">Войти</button>
-                <a class="nav-link" href="{% url 'users:signup' %}">Регистрация</a>
+                <button type="submit" class="btn btn-dark">Зарегистрироваться</button>
+                <a class="nav-link" href="{% url 'users:login' %}">Войти</a> 
             </div>
         </form>
     </div>

@@ -1,7 +1,7 @@
 from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-from .forms import CustomAuthenticationForm
+from .forms import CustomAuthenticationForm, RegistrationForm
 from django.views.generic import TemplateView, View, FormView
 from django.urls import reverse_lazy
 
@@ -45,3 +45,18 @@ class LogoutUsersView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect(reverse('users:login'))
+    
+
+class RegistrationView(MenuMixin, FormView):
+    template_name = 'users/registration.html'
+    form_class = RegistrationForm
+    extra_context = {'title': 'Регистрация'}
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form)
+    
+
+
