@@ -5,6 +5,8 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from .models import Cards, VideoCurses, CategoryCards
+from django.shortcuts import get_object_or_404
 
 
 
@@ -27,6 +29,7 @@ class CursesView(LoginRequiredMixin, MenuMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['cards'] = Cards.objects.all()
         return context
 
 class QuestionnaireView(MenuMixin, TemplateView):
@@ -35,12 +38,20 @@ class QuestionnaireView(MenuMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-# Create your views here.
-# def curses(request):
-#     context = {'menu': nav_menu['menu']}
-#     return render(request, 'curses.html', context=context)
+    
+# классовое представление показа видео по катигориям
 
-# def questionnaire(request):
-#     context = {'menu': nav_menu['menu']}
-#     return render(request, 'curses/question.html', context=context)
+class VideoView(MenuMixin, TemplateView):
+    template_name = 'curses/card_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.kwargs.get('category_id')
+        category = get_object_or_404(CategoryCards, id=category_id)
+        context['category'] = category
+        context['videos'] = VideoCurses.objects.filter(category=category)
+        return context
+
+    
+
 

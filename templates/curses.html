@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-    
+
     <style>
         .z-1 {
             display: flex;
-            justify-content: flex-end    
+            justify-content: flex-end
         }
         .z-1 li {
             display: flex;
             display: inline;
-                
         }
         .navbar-nav {
             list-style-type: none;
@@ -26,16 +25,36 @@
         .nav-link {
             text-decoration: none;
             color: #000;
-            
         }
         .nav-link:hover {
             text-decoration: underline;
         }
         .nav-item:last-child .nav-link {
             margin-left: 0px;
-            
         }
-    </style> 
+
+        .cards {
+            display: flex;
+            width: 300px;
+            color: #000;
+            text-decoration: none;
+        }
+        .cards ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .cards a {
+            text-decoration: none;
+            color: #000;
+        }
+        .cards a:hover {
+            font-size: 22px; /* Увеличиваем шрифт на 2px при наведении */
+        }
+        .cards img {
+            width: 300px;
+        }
+    </style>
     <div class="z-1">
         <ul class="navbar-nav"> <!-- Элементы правой части без выравнивания по левому краю -->
             {% if user.is_authenticated %}
@@ -55,11 +74,23 @@
             {% endif %}
           </ul>
     </div>
-    
-    
-    <div> <a href="{% url 'question' %}">тесты</a>  </div>
-    {% block curses %}
-    {% endblock %}   
-{% endblock content %}
 
+    <div class="cards">
+        <ul>
+            {% for card in cards %}
+            <a href="{% url 'card_list' category_id=card.category.id %}">
+                <li>
+                    <h2>{{ card.title }}</h2>
+                    <img src="{{ card.image.url }}" alt="{{ card.title }}">
+                </li>
+            </a>
+            {% endfor %}
+        </ul>
+    </div>
+
+    
+    {% block curses %}
+    {% endblock %}
+
+{% endblock content %}
 

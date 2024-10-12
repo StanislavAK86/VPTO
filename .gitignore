@@ -6,4 +6,6 @@ venv
 *.db
 .jpg
 .png
-__pycache__ 
+__pycache__
+.mp4
+media/
