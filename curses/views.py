@@ -25,6 +25,7 @@ class MenuMixin(View):
 class CursesView(LoginRequiredMixin, MenuMixin, TemplateView):
     template_name = 'curses.html'
     login_url = reverse_lazy('users:login')
+    extra_context = {'title': 'Курсы'}
     redirect_field_name = 'next'
 
     def get_context_data(self, **kwargs):
@@ -34,6 +35,7 @@ class CursesView(LoginRequiredMixin, MenuMixin, TemplateView):
 
 class QuestionnaireView(MenuMixin, TemplateView):
     template_name = 'curses/question.html'
+    extra_context = {'title': 'Курсы'}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,6 +45,7 @@ class QuestionnaireView(MenuMixin, TemplateView):
 
 class VideoView(MenuMixin, TemplateView):
     template_name = 'curses/card_list.html'
+    extra_context = {'title': 'Курсы'}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

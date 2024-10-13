@@ -29,13 +29,14 @@ class MenuMixin(View):
 class LoginUserView(MenuMixin, FormView):
     template_name = 'users/login.html'
     form_class = CustomAuthenticationForm
-    success_url = reverse_lazy('Главная')  # URL для перенаправления после успешной аутентификации
+    extra_context = {'title': 'Авторизация'}
+    success_url = reverse_lazy('curse_list')  # URL для перенаправления после успешной аутентификации
     
 
     def get_success_url(self):
         if self.request.GET.get('next'):
             return self.request.POST.get('next')
-        return reverse_lazy('Главная')
+        return reverse_lazy('curse_list')
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
@@ -43,7 +44,7 @@ class LoginUserView(MenuMixin, FormView):
         user = authenticate(self.request, username=username, password=password)
         if user is not None:
             login(self.request, user)
-            next_url = self.request.GET.get('next', reverse_lazy('Главная'))
+            next_url = self.request.GET.get('next', reverse_lazy('Курсы'))
             return redirect(next_url)
         else:
             form.add_error(None, "Invalid username or password")

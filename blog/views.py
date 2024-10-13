@@ -21,6 +21,8 @@ class MenuMixin(View):
 
 class NewsContent(MenuMixin, TemplateView):
     template_name = 'blog/news.html'
+    extra_context = {'title': 'Новости'}
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -42,6 +44,7 @@ class NewsContent(MenuMixin, TemplateView):
 
 class Gallery(MenuMixin, TemplateView):
     template_name = 'blog/gallery.html'
+    extra_context = {'title': 'Галерея'}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,6 +56,7 @@ class Gallery(MenuMixin, TemplateView):
 
 class AddNews(LoginRequiredMixin, MenuMixin, FormView):
     template_name = 'blog/add_news.html'
+    extra_context = {'title': 'Добавить новость'}
     form_class = NewsForm
     success_url = '/'
     login_url = reverse_lazy('users:login')
@@ -67,11 +71,13 @@ class AddNews(LoginRequiredMixin, MenuMixin, FormView):
 
 class About(MenuMixin, TemplateView):
     template_name = 'blog/about.html'
+    extra_context = {'title': 'О нас'}
 
 
 
 class Authorization(MenuMixin, FormView):
     template_name = 'blog/authorization.html'
+    extra_context = {'title': 'Авторизация'}
     form_class = AuthorizationForm
     success_url = '/'
 
