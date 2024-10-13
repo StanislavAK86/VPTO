@@ -14,11 +14,7 @@ class NewsForm(forms.ModelForm):
         model = News
         fields = [ 'title', 'content', 'autor']
 
-    # id = forms.IntegerField(label='ID', widget=forms.HiddenInput)
-    # title = forms.CharField(label='Заголовок', max_length=255)
-    # content = forms.CharField(label='Текст', widget=forms.Textarea)
-    # autor = forms.CharField(label='Автор', max_length=255)
-    # date = forms.DateField(label='Дата', auto_now_add=True)
+
 
 
 class AuthorizationForm(forms.Form):

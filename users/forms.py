@@ -1,7 +1,9 @@
+import datetime
 from typing import Any
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
+
 
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -60,3 +62,69 @@ class RegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+class ProfileUserform(forms.ModelForm):
+    this_year = datetime.date.today().year
+
+
+    date_birth = forms.DateField(
+        label='Дата рождения',
+        widget=forms.SelectDateWidget(
+            years=range(this_year - 100, this_year - 6)
+        ),
+        required=False
+    )
+    photo = forms.ImageField(
+        label='Аватар',
+        required=False
+    )
+    username = forms.CharField(
+        disabled=False,
+        label='Логин',
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        required=False
+    )
+    first_name = forms.CharField(
+        disabled=False,
+        label='Имя',
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        required=False
+    )
+    email = forms.EmailField(
+        disabled=False,
+        label='Почта',
+        widget=forms.EmailInput(attrs={'class':'form-control'}),
+        required=False
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'first_name', 'email', 'date_birth', 'photo')
+        label = {
+            'username': 'Имя пользователя',
+            'first_name': 'Имя',
+            'email': 'Почта',
+            'date_birth': 'Дата рождения',
+            'poto': 'Аватар',
+        }
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class':'form-control'}),
+            'last_name': forms.TextInput(attrs={'class':'form-control'}),
+        }
+class UserPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label='Старый пароль',
+        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Старый пароль'}),
+    )
+    new_password1 = forms.CharField(
+        label='Пароль',
+        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Новый пароль'}),
+    )
+
+    new_password2 = forms.CharField(
+        label='Повторите пароль',
+        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Новый пароль'}),
+    )
+
+
+

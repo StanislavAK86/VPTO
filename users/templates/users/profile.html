@@ -1,0 +1,56 @@
+{% extends "users/base_profile.html" %}
+
+{% load static %}
+
+
+
+{% block content_profile %}
+
+  {% comment %} ТУТ Форма профиля {% endcomment %} 
+    <h2>Изменение профиля
+    {% comment %} Если пользователь состоит в группе Moderators {% endcomment %}
+      {% if user.moderator %}
+        <i class="bi bi-stars"></i>
+      {% endif %}
+    </h2>
+    {% comment %} <form method="post" action="{% url 'users:link_social_account' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-dark" name="provider" value="vk-oauth2">Приязать VK</button>
+      <button type="submit" class="btn btn-dark" name="provider" value="github">Приязать GitHub</button>
+    </form> {% endcomment %}
+  {% comment %} Выводим фото пользователя в Image fluid BS5 {% endcomment %}
+
+  <style>
+    .profile-img {
+      border-radius: 100%;
+      max-width: 200px;
+      max-width: 30%;
+      border: 2px solid #000;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      {% comment %} Выравнивание по центру {% endcomment %}
+    }
+  </style>
+
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+
+{% if user.photo %}
+<div class="text-center mt-5 mb-3">
+  <img class="profile-img img-fluid" src="{{ user.photo.url }}"  alt="Тут фото {{ user.username }}">
+</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-dark">Сохранить</button>
+</form>
+
+{% endblock %}

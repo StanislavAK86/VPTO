@@ -1,8 +1,17 @@
-from django.contrib.auth import logout, login, authenticate
+from django.contrib import messages
+from django.contrib.auth import logout, login, authenticate, get_user_model
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-from .forms import CustomAuthenticationForm, RegistrationForm
-from django.views.generic import TemplateView, View, FormView
+from .forms import (
+    CustomAuthenticationForm,
+    RegistrationForm,
+    ProfileUserform,
+    UserPasswordChangeForm
+)
+from django.views.generic import TemplateView, View, FormView, CreateView
+from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 
 class MenuMixin(View):
@@ -56,7 +65,40 @@ class RegistrationView(MenuMixin, FormView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
+        messages.success(self.request, 'Регистрация прошла успешно. Теперь вы можете войти.')
         return super().form_valid(form)
     
 
+
+class ProfileUser(LoginRequiredMixin, MenuMixin, UpdateView):
+    model = get_user_model()
+    form_class = ProfileUserform
+    template_name = 'users/profile.html'
+    extra_context = {'title': 'Профиль пользователя', 'active_tab': 'profile'}
+
+    def get_success_url(self):
+        return reverse_lazy('users:profile', kwargs={'pk': self.object.pk})
+    
+    def get_object(self, queryset=None):
+        return self.request.user
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Ваш профиль успешно обновлен.')
+        return super().form_valid(form)
+
+class UserPasswordChange(MenuMixin, PasswordChangeView):
+    form_class = UserPasswordChangeForm
+    template_name = 'users/password_change_form.html'
+    extra_context = {'title': 'Изменение пароля', 'active_tab': 'password_change'}
+    success_url = reverse_lazy('users:password_change_done')
+
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Ваш пароль успешно изменен.')
+        return super().form_valid(form)
+
+
+class UserPasswordChangeDone(MenuMixin, TemplateView):
+    template_name = 'users/password_change_done.html'
+    extra_context = {'title': 'Смена пароля завершена'}
 
