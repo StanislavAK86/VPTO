@@ -1,0 +1,17 @@
+{% extends "curses.html" %}
+{% block curses %}
+    <h1>Добавить вопрос</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ question_form.as_p }}
+        <h2>Ответы</h2>
+        <div id="choice-forms">
+            {% for form in choice_forms %}
+                <div class="choice-form">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+{% endblock curses %}

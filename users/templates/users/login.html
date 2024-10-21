@@ -26,7 +26,7 @@
             {{ form.as_p }}
             <input type="hidden" name="next" value="{{ request.GET.next }}">
             <div class="form-actions">
-                <button type="submit" class="btn btn-dark">Войти</button>
+                <button type="submit" class="btn btn_custom">Войти</button>
                 <a class="nav-link" href="{% url 'users:signup' %}">Регистрация</a>
             </div>
         </form>

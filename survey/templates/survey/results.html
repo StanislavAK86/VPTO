@@ -1,0 +1,22 @@
+{% extends "curses.html" %}
+{% block curses %}
+    <h1>Результаты опроса</h1>
+    <p>Имя: {{ user_info.full_name }}</p>
+    <p>Учебное заведение: {{ user_info.institution }}</p>
+    <p>Команда: {{ user_info.team }}</p>
+    <p>Правильных ответов: {{ correct_answers }}</p>
+    <p>Неправильных ответов: {{ incorrect_answers }}</p>
+    <h2>Вопросы и ответы</h2>
+    <ul>
+        {% for item in questions_with_correct_answers %}
+            <li>
+                <p>Вопрос: {{ item.question.text }}</p>
+                <p>Правильный ответ: {{ item.correct_choice.text }}</p>
+                <p>Ваш ответ: {{ item.chosen_choice.text }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+        <a href="{% url 'survey:start_survey' %}">
+            <button type="button">Пройти еще раз</button>
+        </a>
+{% endblock curses %}   

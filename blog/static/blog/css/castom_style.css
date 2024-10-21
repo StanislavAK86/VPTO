@@ -9,3 +9,80 @@
   background-color: rgb(78, 78, 155);
   border-color: rgb(78, 78, 155);
 }
+
+.z-1 {
+  display: flex;
+  justify-content: flex-end
+}
+.z-1 li {
+  display: flex;
+  display: inline;
+}
+.navbar-nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.nav-item {
+  margin-right: 10px;
+  display: flex;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+.nav-item:last-child {
+  margin-left: 0px;
+}
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.cards ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cards ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  text-align: center;
+}
+
+.cards ul a {
+  text-decoration: none;
+  color: rgb(78, 78, 155);
+}
+
+.cards ul li img {
+  width: 250px; /* Установите нужный размер */
+  height: 250px; /* Установите нужный размер */
+  object-fit: cover; /* Обрезает изображение, если оно больше */
+  border-radius: 10px; /* Добавляет скругленные углы */
+}
+
+.cards ul li h2 {
+  margin-top: 10px;
+}
+.container {
+  max-width: 500px;
+}
+.container h2 {
+  color: rgb(78, 78, 155);
+}
+.col-md-9 h2 {
+  color: rgb(78, 78, 155);
+}

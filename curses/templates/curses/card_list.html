@@ -1,18 +1,21 @@
 {% extends "curses.html" %}
 {% block curses %}
+<div class="up"></div>
+    <h1> {{ category.name }}</h1>
 
-<h1> {{ category.name }}</h1>
-
-<ul>
-    {% for video in videos %}
-        <li>
-            <h3>{{ video.name }}</h3>
-            <video width="320" height="240" controls>
-                <source src="{{ video.file.url }}" type="video/mp4">
-                
-            </video>
-        </li>
-    {% endfor %}
-</ul>
+    <div class="cards">
+        <ul>
+            {% for video in videos %}
+                <li>
+                    <h3>{{ video.name }}</h3>
+                    <video width="320" height="240" controls>
+                        <source src="{{ video.file.url }}" type="video/mp4">
+                        
+                    </video>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
 {% endblock curses %}

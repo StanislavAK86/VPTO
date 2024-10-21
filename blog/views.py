@@ -24,6 +24,7 @@ class NewsContent(MenuMixin, TemplateView):
     extra_context = {'title': 'Новости'}
 
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         sort = self.request.GET.get('sort', 'date')

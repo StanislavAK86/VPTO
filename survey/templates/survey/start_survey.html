@@ -1,0 +1,9 @@
+{% extends "curses.html" %}
+{% block curses %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Начать опрос</button>
+    </form>
+    
+{% endblock curses %}

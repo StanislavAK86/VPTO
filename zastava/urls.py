@@ -24,13 +24,20 @@ from curses import views
 
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('curses/', include('curses.urls')),
     path('users/', include('users.urls', namespace="users")),
+    path('survey/', include('survey.urls', namespace="survey")),
 ]
 
+if settings.DEBUG:
+     import debug_toolbar
+     urlpatterns = [
+          path('__debug__/', include(debug_toolbar.urls)),
+     ] + urlpatterns
 
 if settings.DEBUG:
      urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

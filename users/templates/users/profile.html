@@ -20,16 +20,7 @@
     </form> {% endcomment %}
   {% comment %} Выводим фото пользователя в Image fluid BS5 {% endcomment %}
 
-  {% comment %} <style>
-    .profile-img {
-      border-radius: 100%;
-      max-width: 200px;
-      max-width: 30%;
-      border: 2px solid #000;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      
-    } 
-  </style> {% endcomment %}
+
 
 
 {% if messages %}
@@ -50,7 +41,7 @@
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit" class="btn btn-dark">Сохранить</button>
+  <button type="submit" class="btn btn_custom">Сохранить</button>
 </form>
 
 {% endblock %}

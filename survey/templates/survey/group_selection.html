@@ -1,0 +1,128 @@
+{% extends "curses.html" %}
+{% block curses %}
+{% comment %} {% extends "curses.html" %}
+{% block curses %}
+    <form method="post">
+        {% csrf_token %}
+        <select name="group" id="group" onchange="togglePasswordField()">
+            {% for group in groups %}
+            <option
+                value="{{ group.id }}"
+                data-requires-password="{{ group.password|yesno:'true,false' }}"
+            >
+                {{ group.name }}
+            </option>
+            {% endfor %}
+        </select>
+        <div id="password-field" style="display: none">
+            <label for="password">Пароль:</label>
+            <input type="password" name="password" id="password" />
+        </div>
+        <button type="submit">Выбрать группу</button>
+    </form>
+    {% if error %}
+    <p style="color: red">{{ error }}</p>
+    {% endif %}
+
+    <script>
+        function togglePasswordField() {
+            var groupSelect = document.getElementById("group");
+            var passwordField = document.getElementById("password-field");
+            var selectedOption = groupSelect.options[groupSelect.selectedIndex];
+            var requiresPassword =
+                selectedOption.getAttribute("data-requires-password") === "true";
+            passwordField.style.display = requiresPassword ? "block" : "none";
+        }
+
+        // Инициализация при загрузке страницы
+        window.onload = function() {
+            togglePasswordField();
+        };
+    </script>
+{% endblock curses %} {% endcomment %}
+
+
+<form method="post" id="group-selection-form">
+    {% csrf_token %}
+    <div class="group-cards">
+        {% for group in groups %}
+        <div class="group-card" data-group-id="{{ group.id }}" data-requires-password="{{ group.password|yesno:'true,false' }}" onclick="selectGroup(this)">
+            <h3>{{ group.name }}</h3>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="password-field" style="display: none">
+        <label for="password">Пароль:</label>
+        <input type="password" name="password" id="password" />
+    </div>
+    <input type="hidden" name="group" id="selected-group" />
+    <button type="submit">Выбрать тест</button>
+</form>
+{% if error %}
+<p style="color: red">{{ error }}</p>
+{% endif %}
+
+<script>
+    function selectGroup(element) {
+        var groupId = element.getAttribute("data-group-id");
+        var requiresPassword = element.getAttribute("data-requires-password") === "true";
+        document.getElementById("selected-group").value = groupId;
+        var passwordField = document.getElementById("password-field");
+        passwordField.style.display = requiresPassword ? "block" : "none";
+
+
+         // Удаляем класс выбранной карточки у всех карточек
+         var groupCards = document.querySelectorAll(".group-card");
+         groupCards.forEach(function(card) {
+             card.classList.remove("selected");
+         });
+ 
+         // Добавляем класс выбранной карточки к текущей карточке
+         element.classList.add("selected");
+     
+    }
+
+    
+
+    // Инициализация при загрузке страницы
+    window.onload = function() {
+        var groupCards = document.querySelectorAll(".group-card");
+        groupCards.forEach(function(card) {
+            card.addEventListener("click", function() {
+                selectGroup(this);
+            });
+        });
+    };
+</script>
+
+<style>
+    .group-cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .group-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+        width: 200px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .group-card:hover {
+        background-color: #f0f0f0;
+    }
+
+    .group-card h3 {
+        margin: 0;
+        font-size: 18px;
+    }
+
+    .group-card.selected {
+        border-color: #007bff;
+        background-color: #e7f1ff;
+    }
+</style>
+{% endblock curses %}

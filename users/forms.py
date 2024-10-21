@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 class CustomAuthenticationForm(AuthenticationForm):
 
     username = forms.CharField(
-        label='Имя пользователя',
+        label='Логин',
         widget=forms.TextInput(attrs={'class':'form-control'}),
     )
 
@@ -35,7 +35,7 @@ class RegistrationForm(forms.ModelForm):
         model = get_user_model()
         fields = ('username', 'email', 'first_name', 'password', 'password2' )
         label = {
-            'username': 'Имя пользователя',
+            'username': 'Логин',
             'email': 'Почта',
             'first_name': 'Имя',
            
@@ -101,7 +101,7 @@ class ProfileUserform(forms.ModelForm):
         model = get_user_model()
         fields = ('username', 'first_name', 'email', 'date_birth', 'photo')
         label = {
-            'username': 'Имя пользователя',
+            'username': 'Логин',
             'first_name': 'Имя',
             'email': 'Почта',
             'date_birth': 'Дата рождения',

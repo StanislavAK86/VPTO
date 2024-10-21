@@ -1,10 +1,4 @@
-.form-actions {
-  display: flex;
-  align-items: center;
-}
-.form-actions .nav-link {
-  margin-left: 10px; /* Отступ между кнопкой и ссылкой */
-}
+
 .profile-img {
   border-radius: 100%;
   max-width: 200px;
@@ -19,7 +13,15 @@
 }
 .form-actions .nav-link {
   margin-left: 10px; /* Отступ между кнопкой и ссылкой */
+  
 }
+.nav-link {
+  text-decoration: none;
+  color: rgb(88, 88, 165);
+  }
+  .nav-link:hover {
+    text-decoration: underline;
+  }
 .profile-img {
   border-radius: 100%;
   max-width: 200px;

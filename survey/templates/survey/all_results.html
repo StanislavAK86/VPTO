@@ -1,0 +1,69 @@
+{% extends "curses.html" %}
+{% block curses %}
+    {% comment %} <h1>Все результаты опросников</h1>
+    <form method="get" action="{% url 'survey:all_results' %}">
+        <label for="sort_by">Сортировать по:</label>
+        <select name="sort_by" id="sort_by" onchange="this.form.submit()">
+            <option value="full_name" {% if sort_by == 'full_name' %}selected{% endif %}>Фамилия</option>
+            <option value="team" {% if sort_by == 'team' %}selected{% endif %}>Команда</option>
+        </select>
+
+        <label for="group">Группа опросов:</label>
+        <select name="group" id="group" onchange="this.form.submit()">
+            <option value="" {% if not group %}selected{% endif %}>Все</option>
+            <!-- Предполагается, что у вас есть модель SurveyGroup с полем name -->
+            {% for group in groups %}
+                <option value="{{ group.name }}" {% if group == group.name %}selected{% endif %}>{{ group.name }}</option>
+            {% endfor %}
+        </select>
+    </form>
+    <ul>
+        {% for result in results %}
+            <li>
+                <h2>{{ result.user_info.full_name }} ({{ result.user_info.team }})</h2>
+                <ul>
+                    {% for item in result.questions_with_answers %}
+                        <li>
+                            <p>Вопрос: {{ item.question.text }}</p>
+                            <p>Правильный ответ: {{ item.correct_choice.text }}</p>
+                            <p>Ваш ответ: {{ item.chosen_choice.text }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock curses %} {% endcomment %}
+<h1>Все результаты опросников</h1>
+    <form method="get" action="{% url 'survey:all_results' %}">
+        <label for="sort_by">Сортировать по:</label>
+        <select name="sort_by" id="sort_by" onchange="this.form.submit()">
+            <option value="full_name" {% if sort_by == 'full_name' %}selected{% endif %}>Фамилия</option>
+            <option value="team" {% if sort_by == 'team' %}selected{% endif %}>Команда</option>
+        </select>
+
+        <label for="group">Группа опросов:</label>
+        <select name="group" id="group" onchange="this.form.submit()">
+            <option value="" {% if not group %}selected{% endif %}>Все</option>
+            {% for group in groups %}
+                <option value="{{ group.name }}" {% if group.name == group %}selected{% endif %}>{{ group.name }}</option>
+            {% endfor %}
+        </select>
+    </form>
+    <ul>
+        {% for result in results %}
+            <li>
+                <h2>{{ result.user_info.full_name }} ({{ result.user_info.team }})</h2>
+                <ul>
+                    {% for item in result.questions_with_answers %}
+                        <li>
+                            <p>Вопрос: {{ item.question.text }}</p>
+                            <p>Правильный ответ: {{ item.correct_choice.text }}</p>
+                            <p>Ваш ответ: {{ item.chosen_choice.text }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock curses %}

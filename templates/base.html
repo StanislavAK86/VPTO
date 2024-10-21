@@ -22,6 +22,25 @@
           </div>
         </div>
         <div class="main">{% include "include/nav.html" %}</div>
+        <div class="z-1">
+          <ul class="navbar-nav"> <!-- Элементы правой части без выравнивания по левому краю -->
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:profile' pk=user.pk %}">Вы вошли как, <strong> {{ user.username }} </strong>  /</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:login' %}">Для просмотра раздела <strong>"Курсы"</strong>, Вам необходимо <strong>Войти</strong></a>
+              </li>
+              {% comment %} <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:signup' %}">Регистрация</a>
+              </li> {% endcomment %}
+              {% endif %}
+            </ul>
+      </div>
         
         {% block content %} {% endblock %}
         <div class="footer">{% include "include/nav.html" %}</div>
