@@ -7,6 +7,20 @@
     <nav class="nav nav-pills flex-column">
         <a class="nav-link {% if active_tab == 'profile' %}active bg-dark text-light{% else %}text-dark{% endif %}" href="{% url 'users:profile' pk=user.pk %}">Профиль</a>
         <a class="nav-link {% if active_tab == 'password_change' %}active bg-dark text-light{% else %}text-dark{% endif %}" href="{% url 'users:password_change' %}">Сменить пароль</a>
-        {% comment %} <a class="nav-link {% if active_tab == 'profile_cards' %}active bg-dark text-light{% else %}text-dark{% endif %}" href="{% url 'users:profile_cards' %}">Мои карточки</a> {% endcomment %}
+        {% if user.moderator or user.is_superuser %}
+            <a class="nav-link {% if active_tab == 'add_news' %}active bg-dark text-light{% else %}text-dark{% endif %}" href="{% url 'blog:add_news' %}">Добавить новость</a>
+            <a class="nav-link {% if active_tab == 'add_question' %}active bg-dark text-light{% else %}text-dark{% endif %}" href="{% url 'survey:add_question' %}">Добавить тест</a>
+            {% if user.moderator or user.is_superuser %}
+                <a class="nav-link {% if active_tab == 'add_news' %}active bg-dark text-light{% else %}text-dark{% endif %}" href="{% url 'blog:add_news' %}">Добавить новость</a>
+                <a class="nav-link {% if active_tab == 'add_question' %}active bg-dark text-light{% else %}text-dark{% endif %}" href="{% url 'survey:add_question' %}">Добавить тест</a>
+                <a class="nav-link {% if active_tab == 'imagegroup_add' %}active bg-dark text-light{% else %}text-dark{% endif %}" href="{% url 'blog:imagegroup_add' %}">Добавить название галереи</a>
+                хай
+            {% else %}
+                <p>Пользователь не является модератором или суперпользователем.</p>
+                <p>user.moderator: {{ user.moderator }}</p>
+                <p>user.is_superuser: {{ user.is_superuser }}</p>
+            {% endif %}
+        {% endif %}
+        хайй
     </nav>
 </nav>

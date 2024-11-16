@@ -13,24 +13,25 @@ from .forms import (
 from django.views.generic import TemplateView, View, FormView, CreateView
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
+from blog.views import MenuMixin
 
-class MenuMixin(View):
-    nav_menu = {
-        'menu': ['Главная', 'Галерея', 'О нас', 'Курсы'],
-    }
+# class MenuMixin(View):
+#     nav_menu = {
+#         'menu': ['Главная', 'Галерея', 'О нас', 'Курсы'],
+#     }
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['menu'] = self.nav_menu['menu']
-        return context
-# Create your views here.
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['menu'] = self.nav_menu['menu']
+#         return context
+
 
 
 class LoginUserView(MenuMixin, FormView):
     template_name = 'users/login.html'
     form_class = CustomAuthenticationForm
     extra_context = {'title': 'Авторизация'}
-    success_url = reverse_lazy('curse_list')  # URL для перенаправления после успешной аутентификации
+    success_url = reverse_lazy('curse_list')  
     
 
     def get_success_url(self):
@@ -44,7 +45,7 @@ class LoginUserView(MenuMixin, FormView):
         user = authenticate(self.request, username=username, password=password)
         if user is not None:
             login(self.request, user)
-            next_url = self.request.GET.get('next', reverse_lazy('Курсы'))
+            next_url = self.request.GET.get('next', reverse_lazy('Главная'))
             return redirect(next_url)
         else:
             form.add_error(None, "Invalid username or password")
@@ -79,11 +80,14 @@ class ProfileUser(LoginRequiredMixin, MenuMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('users:profile', kwargs={'pk': self.object.pk})
-    
+
     def get_object(self, queryset=None):
         return self.request.user
-    
+
     def form_valid(self, form):
+        if 'photo-clear' in self.request.POST:
+            self.object.photo.delete(save=False)
+            self.object.photo = None
         messages.success(self.request, 'Ваш профиль успешно обновлен.')
         return super().form_valid(form)
 

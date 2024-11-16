@@ -1,0 +1,12 @@
+{% extends "users/base_profile.html" %}
+
+{% load static %}
+
+{% block content_profile %}
+  <h2>Добавить видео</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Добавить</button>
+  </form>
+{% endblock %}

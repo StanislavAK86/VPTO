@@ -26,7 +26,7 @@
           <ul class="navbar-nav"> <!-- Элементы правой части без выравнивания по левому краю -->
               {% if user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:profile' pk=user.pk %}">Вы вошли как, <strong> {{ user.username }} </strong>  /</a>
+                <a class="nav-link" href="{% url 'users:profile' pk=user.pk %}">Вы вошли как, <strong> {{user.first_name}} </strong>  /</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
@@ -48,6 +48,7 @@
     </main>
 
     <script src="{% static 'blog/script.js' %}"></script>
+    <script src="{% static 'blog/js/lazyload.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

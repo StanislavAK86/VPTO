@@ -1,0 +1,12 @@
+{% extends "curses.html" %}
+{% block curses %}
+<div class="up"></div>
+    <h1>Delete Video</h1>
+    <p>Are you sure you want to delete "{{ object.name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm</button>
+        <a href="{% url 'video_list' category.id %}">Cancel</a>
+    </form>
+</div>
+{% endblock curses %}

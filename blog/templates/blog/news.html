@@ -1,19 +1,36 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block content %}
- {% for item in news %}
-    <div class="content">
-    <div class="content_block">
-        <div class="news">
-        <div class="news_block">
-            <div class="time_news">Опубликованно: {{item.date}}</div>
-            <div class="text_news">
-            {{item.content}}
-            <p>Автор: {{item.autor}}</p>
+    {% for item in news %}
+        <div class="content">
+            <div class="content_block">
+                <div class="news">
+                    <div class="news_block">
+                        <div class="time_news">Опубликованно: {{ item.date }}</div>
+                        <div class="text_news">
+                            {{ item.content }}
+                            <p>Автор: {{ item.autor }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-    </div>
-    </div>
+    {% endfor %}
+
+    <div class="pagination justify-content-center">
+        <span class="step-links">
+            {% if news.has_previous %}
+                <a class="btn " href="?page=1">&laquo; первая</a>
+                <a class="btn " href="?page={{ news.previous_page_number }}">предыдущая</a>
+            {% endif %}
     
- {% endfor %}
+            <span class="current badge bg-secondary">
+                Страница {{ news.number }} из {{ news.paginator.num_pages }}.
+            </span>
+    
+            {% if news.has_next %}
+                <a class="btn " href="?page={{ news.next_page_number }}">следующая</a>
+                <a class="btn " href="?page={{ news.paginator.num_pages }}">последняя &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock %}

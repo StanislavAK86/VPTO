@@ -15,25 +15,281 @@
         width: 50%;
         border: none;
         margin-left: 1px;
-    }    
+    }
+    .image-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 60px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.9);
+    }
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
 </style>
- <div class="slider-container">
+<div class="slider-container">
     {% for group in groups %}
-        <div class="sliders">
+        <div class="sliders" data-group-id="{{ group.pk }}">
             <h2>{{ group.name }}</h2>
-            <div class="slider" >
-                <div class="slidery" >
+            <div class="slider">
+                <div class="slidery">
                     {% for image in group.image_set.all %}
-                        <img src="{{ image.image.url }}" alt="{{ image.description }}" class="slide" >
+                        <img src="{{ image.image.url }}" alt="{{ image.description }}" class="slide" data-image-id="{{ image.pk }}" style="display: none;" onclick="openModal(this)">
                     {% endfor %}
                 </div>
                 <div class="Btn">
                     <button class="prevBtn" onclick="prevImage(this)">Назад</button>
                     <button class="nextBtn" onclick="nextImage(this)">Следующий</button>
-                </div>  
+                </div>
+                {% if user.is_staff or user.is_superuser %}
+                    <div class="image-actions">
+                        <a href="{% url 'image_add' %}?group={{ group.pk }}">Добавить изображение</a>
+                        <a href="#" class="edit-link">Изменить</a>
+                        <a href="#" class="delete-link">Удалить</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
-</div> 
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div>
+
+<script>
+    function updateLinks(groupId, imageId) {
+        const slider = document.querySelector(`.sliders[data-group-id="${groupId}"]`);
+        const editLink = slider.querySelector('.edit-link');
+        const deleteLink = slider.querySelector('.delete-link');
+        if (editLink && deleteLink) {
+            editLink.href = `{% url 'image_edit' 0 %}`.replace('0', imageId);
+            deleteLink.href = `{% url 'image_delete' 0 %}`.replace('0', imageId);
+            console.log(`Updated links for group ${groupId} and image ${imageId}`);
+            console.log(`Edit link: ${editLink.href}`);
+            console.log(`Delete link: ${deleteLink.href}`);
+        } else {
+            console.error(`Links not found for group ${groupId}`);
+        }
+    }
+
+    function prevImage(button) {
+        const slider = button.closest('.sliders');
+        const images = slider.querySelectorAll('.slide');
+        let currentIndex = Array.from(images).findIndex(img => img.style.display !== 'none');
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        images.forEach((img, index) => {
+            img.style.display = index === currentIndex ? 'block' : 'none';
+        });
+        const groupId = slider.dataset.groupId;
+        const imageId = images[currentIndex].dataset.imageId;
+        console.log(`Prev image: groupId=${groupId}, imageId=${imageId}`);
+        updateLinks(groupId, imageId);
+    }
+
+    function nextImage(button) {
+        const slider = button.closest('.sliders');
+        const images = slider.querySelectorAll('.slide');
+        let currentIndex = Array.from(images).findIndex(img => img.style.display !== 'none');
+        currentIndex = (currentIndex + 1) % images.length;
+        images.forEach((img, index) => {
+            img.style.display = index === currentIndex ? 'block' : 'none';
+        });
+        const groupId = slider.dataset.groupId;
+        const imageId = images[currentIndex].dataset.imageId;
+        console.log(`Next image: groupId=${groupId}, imageId=${imageId}`);
+        updateLinks(groupId, imageId);
+    }
+
+    // Initialize the first image and links
+    document.addEventListener('DOMContentLoaded', () => {
+        const sliders = document.querySelectorAll('.sliders');
+        sliders.forEach(slider => {
+            const images = slider.querySelectorAll('.slide');
+            const groupId = slider.dataset.groupId;
+            if (images.length > 0) {
+                images[0].style.display = 'block';
+                const imageId = images[0].dataset.imageId;
+                console.log(`Initial image: groupId=${groupId}, imageId=${imageId}`);
+                updateLinks(groupId, imageId);
+            }
+        });
+    });
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function openModal(img) {
+        var modalImg = document.getElementById("modalImg");
+        modal.style.display = "block";
+        modalImg.src = img.src;
+    }
+</script>
 {% endblock %}
-   
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends "base.html" %}
+
+{% block content %}
+<style>
+    .Btn {
+        display: flex;
+        justify-content: space-around;
+    }
+    .prevBtn {
+        width: 50%;
+        border: none;
+        margin-right: 1px;
+    }
+    .nextBtn {
+        width: 50%;
+        border: none;
+        margin-left: 1px;
+    }
+    .image-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+</style>
+<div class="slider-container">
+    {% for group in groups %}
+        <div class="sliders" data-group-id="{{ group.pk }}">
+            <h2>{{ group.name }}</h2>
+            <div class="slider">
+                <div class="slidery">
+                    {% for image in group.image_set.all %}
+                        <img src="{{ image.image.url }}" alt="{{ image.description }}" class="slide" data-image-id="{{ image.pk }}" style="display: none;">
+                    {% endfor %}
+                </div>
+                <div class="Btn">
+                    <button class="prevBtn" onclick="prevImage(this)">Назад</button>
+                    <button class="nextBtn" onclick="nextImage(this)">Следующий</button>
+                </div>
+                {% if user.is_staff or user.is_superuser %}
+                    <div class="image-actions">
+                        <a href="{% url 'image_add' %}?group={{ group.pk }}">Добавить изображение</a>
+                        <a href="#" class="edit-link">Изменить</a>
+                        <a href="#" class="delete-link">Удалить</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    function updateLinks(groupId, imageId) {
+        const slider = document.querySelector(`.sliders[data-group-id="${groupId}"]`);
+        const editLink = slider.querySelector('.edit-link');
+        const deleteLink = slider.querySelector('.delete-link');
+        if (editLink && deleteLink) {
+            editLink.href = `{% url 'image_edit' 0 %}`.replace('0', imageId);
+            deleteLink.href = `{% url 'image_delete' 0 %}`.replace('0', imageId);
+            console.log(`Updated links for group ${groupId} and image ${imageId}`);
+            console.log(`Edit link: ${editLink.href}`);
+            console.log(`Delete link: ${deleteLink.href}`);
+        } else {
+            console.error(`Links not found for group ${groupId}`);
+        }
+    }
+
+    function prevImage(button) {
+        const slider = button.closest('.sliders');
+        const images = slider.querySelectorAll('.slide');
+        let currentIndex = Array.from(images).findIndex(img => img.style.display !== 'none');
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        images.forEach((img, index) => {
+            img.style.display = index === currentIndex ? 'block' : 'none';
+        });
+        const groupId = slider.dataset.groupId;
+        const imageId = images[currentIndex].dataset.imageId;
+        console.log(`Prev image: groupId=${groupId}, imageId=${imageId}`);
+        updateLinks(groupId, imageId);
+    }
+
+    function nextImage(button) {
+        const slider = button.closest('.sliders');
+        const images = slider.querySelectorAll('.slide');
+        let currentIndex = Array.from(images).findIndex(img => img.style.display !== 'none');
+        currentIndex = (currentIndex + 1) % images.length;
+        images.forEach((img, index) => {
+            img.style.display = index === currentIndex ? 'block' : 'none';
+        });
+        const groupId = slider.dataset.groupId;
+        const imageId = images[currentIndex].dataset.imageId;
+        console.log(`Next image: groupId=${groupId}, imageId=${imageId}`);
+        updateLinks(groupId, imageId);
+    }
+
+    // Initialize the first image and links
+    document.addEventListener('DOMContentLoaded', () => {
+        const sliders = document.querySelectorAll('.sliders');
+        sliders.forEach(slider => {
+            const images = slider.querySelectorAll('.slide');
+            const groupId = slider.dataset.groupId;
+            if (images.length > 0) {
+                images[0].style.display = 'block';
+                const imageId = images[0].dataset.imageId;
+                console.log(`Initial image: groupId=${groupId}, imageId=${imageId}`);
+                updateLinks(groupId, imageId);
+            }
+        });
+    });
+</script>
+{% endblock %}
+    {% endcomment %}

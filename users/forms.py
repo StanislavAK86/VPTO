@@ -66,7 +66,6 @@ class RegistrationForm(forms.ModelForm):
 class ProfileUserform(forms.ModelForm):
     this_year = datetime.date.today().year
 
-
     date_birth = forms.DateField(
         label='Дата рождения',
         widget=forms.SelectDateWidget(
@@ -111,6 +110,7 @@ class ProfileUserform(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'class':'form-control'}),
             'last_name': forms.TextInput(attrs={'class':'form-control'}),
         }
+        
 class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
         label='Старый пароль',

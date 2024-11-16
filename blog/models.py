@@ -1,10 +1,11 @@
 from django.db import models
 
+
 class News(models.Model):
     id = models.AutoField(primary_key=True, db_column='news_ID')
     title = models.CharField(max_length=100)
     content = models.TextField()
-    autor = models.CharField(max_length=100)
+    autor = models.ForeignKey('users.User', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     
 

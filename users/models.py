@@ -15,8 +15,15 @@ class User(AbstractUser):
         related_name='castom_users_set',
         blank=True,
         verbose_name='user permissions',
-
     )
 
     def __str__(self):
         return self.username
+
+    def save(self, *args, **kwargs):
+        if self.pk:  # If the instance already exists
+            old_instance = User.objects.get(pk=self.pk)
+            if old_instance.photo and self.photo != old_instance.photo:
+                # Delete the old photo if it exists and is different from the new one
+                old_instance.photo.delete(save=False)
+        super().save(*args, **kwargs)

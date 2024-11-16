@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h2>Подтвердите удаление изображения</h2>
+        <form method="post">
+            {% csrf_token %}
+            <p>Вы уверены, что хотите удалить это изображение?</p>
+            <img src="{{ image.url }}" alt="Изображение для удаления" style="max-width: 100%;">
+            <button type="submit">Удалить</button>
+            <a href="{% url 'Галерея' %}">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

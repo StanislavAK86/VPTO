@@ -16,7 +16,7 @@ class UserInfo(models.Model):
     full_name = models.CharField(max_length=100)
     team = models.CharField(max_length=100)
     institution = models.CharField(max_length=100)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, blank=True)
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, blank=True)
     
     class Meta:
         verbose_name = 'Информация о пользователе'

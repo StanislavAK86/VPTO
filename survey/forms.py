@@ -23,6 +23,12 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['text', 'group', 'is_published', 'new_group']
+        labels = {
+            'text': 'Текст вопроса',
+            'group': 'Группа',
+            'is_published': 'Опубликовать вопрос',
+            'new_group': 'Новая группа'
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,6 +41,10 @@ class ChoiceForm(forms.ModelForm):
         widgets = {
             'text': forms.TextInput(attrs={'placeholder': 'Текст ответа', 'required': True}),
             'is_correct': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+        labels = {
+            'text': 'Текст варианта ответа',
+            'is_correct': 'Правильный ответ',
         }
 
     def __init__(self, *args, **kwargs):

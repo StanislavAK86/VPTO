@@ -9,9 +9,7 @@
   {% comment %} ТУТ Форма профиля {% endcomment %} 
     <h2>Изменение профиля
     {% comment %} Если пользователь состоит в группе Moderators {% endcomment %}
-      {% if user.moderator %}
-        <i class="bi bi-stars"></i>
-      {% endif %}
+
     </h2>
     {% comment %} <form method="post" action="{% url 'users:link_social_account' %}">
       {% csrf_token %}
@@ -43,5 +41,7 @@
   {{ form.as_p }}
   <button type="submit" class="btn btn_custom">Сохранить</button>
 </form>
+
+
 
 {% endblock %}

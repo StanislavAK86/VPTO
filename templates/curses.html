@@ -2,19 +2,30 @@
 {% block content %}
 
     
-
-    <div class="cards">
-        <ul>
-            {% for card in cards %}
-            <a href="{% url 'card_list' category_id=card.category.id %}">
-                <li>
-                    <h2>{{ card.title }}</h2>
-                    <img src="{{ card.image.url }}" alt="{{ card.title }}">
-                </li>
-            </a>
-            {% endfor %}
-        </ul>
-    </div>
+        {% if show_survey %}
+        <div class="cards">
+            <ul>
+                <a href="{% url 'survey:group_selection' %}">
+                    <li>
+                        <h2>опросник</h2>
+                        <img src="" alt="">
+                    </li>
+                </a>
+            </ul>
+        </div>
+        {% endif %}
+        <div class="cards">
+            <ul>
+                {% for card in cards %}
+                <a href="{% url 'card_list' category_id=card.category.id %}">
+                    <li>
+                        <h2>{{ card.title }}</h2>
+                        <img src="{{ card.image.url }}" alt="{{ card.title }}">
+                    </li>
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
 
     
     {% block curses %}

@@ -8,4 +8,9 @@ class VideoCursesForm(forms.ModelForm):
     class Meta:
         model = VideoCurses
         fields = ['name', 'file', 'category']
+        labels = {
+            'name': 'Название видео',
+            'file': 'Файл видео',
+            'category': 'Категория видео',
+        }
     

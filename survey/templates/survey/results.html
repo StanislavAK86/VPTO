@@ -1,22 +1,24 @@
 {% extends "curses.html" %}
 {% block curses %}
-    <h1>Результаты опроса</h1>
-    <p>Имя: {{ user_info.full_name }}</p>
-    <p>Учебное заведение: {{ user_info.institution }}</p>
-    <p>Команда: {{ user_info.team }}</p>
-    <p>Правильных ответов: {{ correct_answers }}</p>
-    <p>Неправильных ответов: {{ incorrect_answers }}</p>
-    <h2>Вопросы и ответы</h2>
-    <ul>
-        {% for item in questions_with_correct_answers %}
-            <li>
-                <p>Вопрос: {{ item.question.text }}</p>
-                <p>Правильный ответ: {{ item.correct_choice.text }}</p>
-                <p>Ваш ответ: {{ item.chosen_choice.text }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-        <a href="{% url 'survey:start_survey' %}">
-            <button type="button">Пройти еще раз</button>
-        </a>
-{% endblock curses %}   
+    <h1 class="mt-4">Результаты опроса</h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            <p><strong>Имя:</strong> {{ user_info.full_name }}</p>
+            <p><strong>Учебное заведение:</strong> {{ user_info.institution }}</p>
+            <p><strong>Команда:</strong> {{ user_info.team }}</p>
+            <p><strong>Правильных ответов:</strong> {{ correct_answers }}</p>
+            <p><strong>Неправильных ответов:</strong> {{ incorrect_answers }}</p>
+            <h2 class="mt-4">Вопросы и ответы</h2>
+            <ul class="list-group">
+                {% for item in questions_with_correct_answers %}
+                    <li class="list-group-item">
+                        <p><strong>Вопрос:</strong> {{ item.question.text }}</p>
+                        <p><strong>Правильный ответ:</strong> {{ item.correct_choice.text }}</p>
+                        <p><strong>Ваш ответ:</strong> {{ item.chosen_choice.text }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'survey:start_survey' %}" class="btn btn-primary mt-4">Пройти еще раз</a>
+        </div>
+    </div>
+{% endblock curses %}

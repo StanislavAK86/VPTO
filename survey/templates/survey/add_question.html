@@ -1,6 +1,13 @@
-{% extends "curses.html" %}
-{% block curses %}
-    <h1>Добавить вопрос</h1>
+{% extends "users/base_profile.html" %}
+
+{% load static %}
+
+
+
+{% block content_profile %}
+
+  
+<h1>Добавить вопрос</h1>
     <form method="post">
         {% csrf_token %}
         {{ question_form.as_p }}
@@ -14,4 +21,8 @@
         </div>
         <button type="submit">Сохранить</button>
     </form>
-{% endblock curses %}
+
+
+{% endblock %}
+    
+    

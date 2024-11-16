@@ -9,6 +9,51 @@
                 <li>
                     <h3>{{ video.name }}</h3>
                     <video width="320" height="240" controls>
+                        <source src="{% url 'video_stream' video.id %}" type="video/mp4">
+                    </video>
+                     <form action="{% url 'video_delete' video.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Удалить</button>
+                    </form> 
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock curses %}
+
+{% comment %} {% extends "curses.html" %}
+{% block curses %}
+<div class="up"></div>
+    <h1> {{ category.name }}</h1>
+
+    <div class="cards">
+        <ul>
+            {% for video in videos %}
+                <li>
+                    <h3>{{ video.name }}</h3>
+                    <video width="320" height="240" controls>
+                        <source src="{% url 'video_stream' video.id %}" type="video/mp4">
+                    </video>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock curses %} {% endcomment %}
+
+{% comment %} {% extends "curses.html" %}
+{% block curses %}
+<div class="up"></div>
+    <h1> {{ category.name }}</h1>
+
+    <div class="cards">
+        <ul>
+            {% for video in videos %}
+                <li>
+                    <h3>{{ video.name }}</h3>
+                    <video width="320" height="240" controls>
                         <source src="{{ video.file.url }}" type="video/mp4">
                         
                     </video>
@@ -18,4 +63,4 @@
     </div>
 </div>
 
-{% endblock curses %}
+{% endblock curses %} {% endcomment %}
