@@ -3,6 +3,7 @@ from .models import News, ImageGroup, Image
 
 
 
+
 class NewsForm(forms.ModelForm):
 
     title = forms.CharField(label='Заголовок', max_length=255, widget = forms.TextInput(attrs={'class':'form-control'}))
