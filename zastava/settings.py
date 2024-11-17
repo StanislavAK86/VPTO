@@ -184,3 +184,5 @@ CACHES = {
         'LOCATION': os.path.join(BASE_DIR, 'cache'),
     }
 }
+
+CSRF_TRUSTED_ORIGINS = ['https://stanislavak86-vpto-adbd.twc1.net']
