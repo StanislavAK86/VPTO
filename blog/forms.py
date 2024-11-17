@@ -8,21 +8,34 @@ class NewsForm(forms.ModelForm):
 
     title = forms.CharField(label='Заголовок', max_length=255, widget = forms.TextInput(attrs={'class':'form-control'}))
     content = forms.CharField(label='Текст', widget = forms.Textarea(attrs={'class':'form-control'}))
-
-    
-    
     class Meta:
         model = News
         fields = [ 'title', 'content']
 
 #Добавим форму для создания группы галерий и загрузки фотокартинок 
 
+# class editImageForm(forms.ModelForm):
+#     class Meta:
+#         model = Image
+#         fields = ['group', 'image', 'description']
+#         widgets = {
+#             'image': forms.ClearableFileInput(attrs={'multiple': True}),
+#         }
+
 class editImageForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ['group', 'image', 'description']
         widgets = {
-            'image': forms.ClearableFileInput(attrs={'multiple': True}),
+            'group': forms.Select(attrs={'class': 'form-control'}),
+            'image': forms.ClearableFileInput(attrs={
+                'multiple': True,
+                'class': 'form-control'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3
+            })
         }
 
 
